@@ -1,8 +1,6 @@
 package org.arham.spring_jpa_demo.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
 public class Student
@@ -19,6 +17,17 @@ public class Student
 
     @Column
     int science;
+
+    @ManyToOne
+    Standard standard;
+
+    public Standard getStandard() {
+        return standard;
+    }
+
+    public void setStandard(Standard standard) {
+        this.standard = standard;
+    }
 
     public int getRollno() {
         return rollno;

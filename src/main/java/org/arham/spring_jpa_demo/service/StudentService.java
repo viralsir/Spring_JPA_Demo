@@ -1,5 +1,7 @@
 package org.arham.spring_jpa_demo.service;
 
+import org.arham.spring_jpa_demo.dto.StudentRequestDTO;
+import org.arham.spring_jpa_demo.model.Standard;
 import org.arham.spring_jpa_demo.model.Student;
 import org.arham.spring_jpa_demo.repo.StudentRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,11 +17,52 @@ public class StudentService
     @Autowired
     StudentRepo studentRepo;
 
+    @Autowired
+    StandardService standardService;
+
 //    StudentService(StudentRepo stdrepo)
 //    {
 //        this.studentRepo=stdrepo;
 //    }
 //
+
+    public String addStudentByStd(int std,StudentRequestDTO studentRequestDTO)
+    {
+        Standard standard=  standardService.viewStandardById(std);
+        Student student=new Student();
+        student.setRollno(studentRequestDTO.rollno());
+        student.setName(studentRequestDTO.name());
+        student.setMaths(studentRequestDTO.maths());
+        student.setScience(studentRequestDTO.science());
+        student.setStandard(standard);
+
+        studentRepo.save(student);
+
+        return "new Student Added SuccessFully";
+
+    }
+
+    public String updateStudentByStd(int std,StudentRequestDTO studentRequestDTO)
+    {
+        Standard standard=  standardService.viewStandardById(std);
+        Student student= studentRepo.findByRollno(studentRequestDTO.rollno());
+        student.setRollno(studentRequestDTO.rollno());
+        student.setName(studentRequestDTO.name());
+        student.setMaths(studentRequestDTO.maths());
+        student.setScience(studentRequestDTO.science());
+        student.setStandard(standard);
+        studentRepo.save(student);
+        return "new Student Added SuccessFully";
+
+    }
+
+
+    public List<Student> viewStudentByStd(int std)
+    {
+         return studentRepo.findByStandardStd(std);
+    }
+
+
     public String addStudent(Student student)
     {
             studentRepo.save(student);  // add or update

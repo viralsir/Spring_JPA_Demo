@@ -1,6 +1,9 @@
 package org.arham.spring_jpa_demo.Controller;
 
+import org.arham.spring_jpa_demo.dto.StudentRequestDTO;
+import org.arham.spring_jpa_demo.model.Standard;
 import org.arham.spring_jpa_demo.model.Student;
+import org.arham.spring_jpa_demo.service.StandardService;
 import org.arham.spring_jpa_demo.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +17,30 @@ public class StudentController
 {
     @Autowired
     StudentService studentService;
+
+    @Autowired
+    StandardService standardService;
+
+    @PostMapping("/std/{std}")
+    public String addStudentByStd(@PathVariable int std, @RequestBody StudentRequestDTO studentRequestDTO)
+    {
+
+        return studentService.addStudentByStd(std,studentRequestDTO);
+    }
+
+    @PutMapping("std/{std}")
+    public String updateStudentByStd(@PathVariable int std, @RequestBody StudentRequestDTO studentRequestDTO)
+    {
+
+        return studentService.updateStudentByStd(std,studentRequestDTO);
+    }
+
+    @GetMapping("std/{std}")
+    public List<Student> viewStudentByStd(@PathVariable int std)
+    {
+        return studentService.viewStudentByStd(std);
+    }
+
 
     @PostMapping
     public String addStudent(@RequestBody Student student){

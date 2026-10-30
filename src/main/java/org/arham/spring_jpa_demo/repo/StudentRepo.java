@@ -12,6 +12,8 @@ import java.util.List;
 @Repository
 public interface StudentRepo  extends JpaRepository<Student,Integer>
 {
+    Student findByRollno(int rollno);
+
     List<Student> findByName(String name);
 
     List<Student> findByNameStartsWith(String criteria);
@@ -19,6 +21,8 @@ public interface StudentRepo  extends JpaRepository<Student,Integer>
     List<Student> findByMathsLessThan(int marks);
 
     List<Student> findByMathsLessThanAndScienceLessThan(int matths_mark,int science_mark);
+
+    List<Student> findByStandardStd(int std);
 
 //    @Query("select * from student where math={{marks}}")
 //    List<Student> viewMathsLessThan(int marks);
